@@ -41,8 +41,6 @@ df = pd.DataFrame({
     'strings': list('abcde'),
     'dates': pd.date_range(start='2022-01-01', end='2022-01-05', freq='D')
 })
-
-# ->
 ```
 
 |                    | integers | floats | booleans | strings | dates      |
@@ -169,76 +167,12 @@ multiply_integers(df, 2)
 # Passed!
 # Validating return value...
 # Passed!
-# ->
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>integers</th>
-      <th>floats</th>
-      <th>booleans</th>
-      <th>strings</th>
-      <th>dates</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>True</td>
-      <td>a</td>
-      <td>2022-01-01</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>0.5</td>
-      <td>True</td>
-      <td>b</td>
-      <td>2022-01-02</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4</td>
-      <td>1.0</td>
-      <td>True</td>
-      <td>c</td>
-      <td>2022-01-03</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>6</td>
-      <td>1.5</td>
-      <td>True</td>
-      <td>d</td>
-      <td>2022-01-04</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>8</td>
-      <td>2.0</td>
-      <td>True</td>
-      <td>e</td>
-      <td>2022-01-05</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+|                    | integers | floats | booleans | strings | dates      |
+| :----------------- | :------- | :----- | :------- | :------ | :--------- |
+| <strong>0</strong> | 0        | 0.0    | True     | a       | 2022-01-01 |
+| <strong>1</strong> | 1        | 0.5    | True     | b       | 2022-01-02 |
+| <strong>2</strong> | 2        | 1.0    | True     | c       | 2022-01-03 |
+| <strong>3</strong> | 3        | 1.5    | True     | d       | 2022-01-04 |
+| <strong>4</strong> | 4        | 2.0    | True     | e       | 2022-01-05 |
