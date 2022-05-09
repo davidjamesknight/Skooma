@@ -1,6 +1,6 @@
 # Skooma
 
-Skooma is a simple, lightweight, and intuitive validation tool for Pandas DataFrames.
+Skooma is a simple, lightweight, and intuitive validation tool for working with Pandas DataFrames.
 
 ## Features
 
