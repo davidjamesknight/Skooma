@@ -1,4 +1,64 @@
 import pandas as pd
+import numpy as np
+from typing import Callable, Any
+import datetime
+
+
+class Type:
+    def __init__(self, rule: Callable[[Any], Any] = None, types: list = None):
+        self.rule = rule
+        self.types = types
+
+    def validate(self, series: pd.Series) -> list:
+        errors = []
+        col = series.name
+        if self.rule:
+            for x in series.unique():
+                try:
+                    if not (type(x) in self.types and self.rule(x)):
+                        errors.append(f"Invalid value in column '{col}': {x}")
+                except Exception as err:
+                    errors.append(f"Invalid value in column '{col}': {x} ({err})")
+        return errors
+
+
+class Integer(Type):
+    def __init__(self, rule: Callable[[Any], Any] = None):
+        super().__init__(
+            rule,
+            [
+                int,
+                np.int_,
+                np.int8,
+                np.int16,
+                np.int32,
+                np.int64,
+                np.uint8,
+                np.uint16,
+                np.uint32,
+                np.uint64,
+            ],
+        )
+
+
+class Float(Type):
+    def __init__(self, rule: Callable[[Any], Any] = None):
+        super().__init__(rule, [float, np.float_, np.float16, np.float32, np.float64])
+
+
+class Boolean(Type):
+    def __init__(self, rule: Callable[[Any], Any] = None):
+        super().__init__(rule, [bool, np.bool_])
+
+
+class String(Type):
+    def __init__(self, rule: Callable[[Any], Any] = None):
+        super().__init__(rule, [str, np.string_, np.unicode])
+
+
+class DateTime(Type):
+    def __init__(self, rule: Callable[[Any], Any] = None):
+        super().__init__(rule, [datetime.date, datetime.datetime])
 
 
 class Schema:
@@ -21,20 +81,10 @@ class Schema:
                 errors.append(f"Column '{col}' not found in DataFrame")
             # If the column is present, test each unique value against the schema requirements
             else:
-                func = schema[col]
-                if func:
-                    # Iterate over NumPy array of unique values
-                    for x in df[col].unique():
-                        # If the test returns False, catch the bad value
-                        try:
-                            result = func(x)
-                            if result == False:
-                                errors.append(f"Invalid value in column '{col}': {x}")
-                        # If the test throws an error, catch the error message
-                        except Exception as err:
-                            errors.append(
-                                f"Invalid value in column '{col}': {x} ({err})"
-                            )
+                rule = schema[col]
+                if rule:
+                    errors += rule.validate(df[col])
+
         if len(errors):
             [print(e) for e in errors]
             return False
@@ -57,7 +107,7 @@ def validate(args=None, returns=None):
         for i in range(len(schemata)):
             schema_in = schemata[i]
             if schema_in:
-                print(f"Validating input at index {i}...")
+                print(f"Validating argument at index {i}...")
                 df = args_[i]
                 if not schema_in.validate(df):  # If DataFrame fails validation...
                     return False
@@ -66,14 +116,14 @@ def validate(args=None, returns=None):
                     return True
 
     def validate_o(schema_out, output):
-        print(f"Validating output...")
+        print(f"Validating return value...")
         if not schema_out.validate(output):
             return False
         else:
             print("Passed!")
             return True
 
-    def decorator(func):
+    def decorator(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
         def decorated_func(*args_):
             # Validate inputs before attempting to run the function
             valid_inputs = validate_i(args, args_) if args else True
