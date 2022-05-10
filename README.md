@@ -55,7 +55,7 @@ df = pd.DataFrame({
 
 ### The `Schema` class
 
-Let's create a schema for our DataFrame using the `Schema` class.
+Next, let's create a schema for our DataFrame using the `Schema` class.
 
 To create a new `Schema`, we'll pass in a dictionary with keys corresponding to the columns in our DataFrame. The value for each key is an instance of a Skooma datatype. Datatype classes may contain optional lambda functions that evaluate to `True` or `False` for each unique value in the column. This allows us to go beyond basic type checking and set more granular constraints.
 
@@ -176,3 +176,7 @@ multiply_integers(df, 2)
 | <strong>2</strong> | 2        | 1.0    | True     | c       | 2022-01-03 |
 | <strong>3</strong> | 3        | 1.5    | True     | d       | 2022-01-04 |
 | <strong>4</strong> | 4        | 2.0    | True     | e       | 2022-01-05 |
+
+## To do
+- [ ] Experiment with Nim or Rust bindings to speed up element-wise validation (Skooma currently iterates over the underlying NumPy array in `pd.Series.unique()` for scalar operations; this is faster than iterating over a `pd.Series` but still not optimal)
+- [ ] Add handling for arguments that aren't DataFrames
