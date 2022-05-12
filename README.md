@@ -1,6 +1,6 @@
 # Skooma
 
-Skooma is a simple, lightweight, and intuitive validation tool for working with Pandas DataFrames.
+Skooma is a simple, lightweight, and intuitive validation tool for working with Pandas DataFrames in ETL pipelines.
 
 ## Features
 
@@ -179,4 +179,4 @@ multiply_integers(df, 2)
 
 ## To do
 - [ ] Experiment with Nim or Rust bindings to speed up element-wise validation (Skooma currently iterates over the underlying NumPy array in `pd.Series.unique()` for scalar operations; this is faster than iterating over a `pd.Series` but still not optimal)
-- [ ] Add handling for arguments that aren't DataFrames
+- [ ] Add handling to `@validate` for arguments that aren't DataFrames
