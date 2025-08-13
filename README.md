@@ -178,5 +178,5 @@ multiply_integers(df, 2)
 | <strong>4</strong> | 4        | 2.0    | True     | e       | 2022-01-05 |
 
 ## To do
-- [ ] Experiment with Nim or Rust bindings to speed up element-wise validation (Skooma currently iterates over the underlying NumPy array in `pd.Series.unique()` for scalar operations; this is faster than iterating over a `pd.Series` but still not optimal)
 - [ ] Add handling to `@validate` for arguments that aren't DataFrames
+- [ ] Experiment with more performant language bindings to speed up element-wise validation (Skooma currently iterates over the underlying NumPy array in `pd.Series.unique()` for scalar operations; this is faster than iterating over a `pd.Series` but still not optimal)
