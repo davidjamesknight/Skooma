@@ -1,6 +1,6 @@
 # Skooma
 
-Skooma is a simple, lightweight, and intuitive validation tool for working with Pandas DataFrames in ETL pipelines.
+**🚧 Work in Progress**. Skooma is a simple, lightweight, and intuitive validation tool for working with Pandas DataFrames.
 
 ## Features
 
